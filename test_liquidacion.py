@@ -16,7 +16,7 @@ class LiquidacionTest(unittest.TestCase):
 
     def test_con_vacaciones(self):
         resultado = logica_liquidacion.calcular_liquidacion(7000, 20, 5)
-        self.assertEqual(resultado, 1750000)
+        self.assertEqual(round(resultado, 1750000)
 
     # CASOS EXTRAORDINARIOS
 
@@ -52,4 +52,5 @@ class LiquidacionTest(unittest.TestCase):
 
 
 if __name__ == "__main__":
+
     unittest.main()
