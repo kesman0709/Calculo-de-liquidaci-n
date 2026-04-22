@@ -157,34 +157,31 @@ El sistema valida que:
 - El valor de la indemnización no sea negativo si aplica.
 ---
 
-Formula usada:
+##  Mensajes de Error
+ 
+En caso de datos inválidos, el sistema indica qué dato causó el problema y cómo corregirlo:
+ 
+-  `SalarioInvalido`: "salario_hora inválido: {salario_hora}"
+-  `DiasInvalidos`: "dias_trabajados inválidos: {dias_trabajados}"
+-  `VacacionesInvalidas`: "vacaciones_pendientes inválidas: {vacaciones_pendientes}"
+-  `IndemnizacionInvalida`: "valor_indemnizacion inválido: {valor}"
+---
+ 
+##  Salidas del Sistema
+ 
+El sistema mostrará:
+ 
+- **Total a pagar:** Suma del salario base, vacaciones e indemnización (si aplica).
+---
+##  Descripción de Carpetas
+ 
+```
+src/
+  model/
+    logica_liquidacion.py   — Contiene la lógica del sistema: validaciones y cálculo del total a pagar.
+  view/
+    interfaz_liquidacion.py — Gestiona la interfaz con el usuario: muestra campos de entrada y resultado.
+tests/
+  test_liquidacion.py       — Agrupa las pruebas automatizadas que verifican el correcto funcionamiento del sistema.
 
-El sistema asume una jornada laboral de 10 horas por día, de acuerdo con los valores definidos en los casos de prueba.
-
-El total se calcula de la siguiente manera:
-
-Salario base = salario_hora × 10 × días_trabajados
-
-Vacaciones = salario_hora × 10 × vacaciones_pendientes
-
-Total = salario base + vacaciones + indemnización (si aplica)
-
-Validaciones:
-
-El sistema valida que:
-
-El salario por hora sea mayor que cero.
-
-Los días trabajados estén entre 1 y 30.
-
-Las vacaciones pendientes no sean negativas.
-
-La indemnización no sea negativa si aplica
-
-Pruebas:
-
-Se implementaron pruebas unitarias utilizando la librería unittest.
-
-Las pruebas cubren: Casos normales ,Casos extraordinarios, Casos de error
-
-Los valores esperados utilizados en las pruebas son valores fijos definidos en el archivo Excel de casos de pruebas.
+```
