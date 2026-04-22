@@ -32,7 +32,7 @@ Esta herramienta busca facilitar el cálculo preciso y automatizado de una liqui
 - Obtener el total a pagar de forma inmediata y confiable.
 ---
  
-## ▶️ Funcionamiento
+##  Funcionamiento
  
 ### Prerrequisitos
  
