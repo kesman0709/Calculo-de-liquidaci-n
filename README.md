@@ -7,7 +7,7 @@ Kesman Posso Parra
 
 Audio donde se explica acerca del proyecto: https://github.com/kesman0709/Calculo-de-liquidaci-n/blob/main/explicaci%C3%B3n%20del%20proyecto.m4a
 
-### Desarrollado también por:
+### Interfaz gráfica desarrollada por:
 
 Maria Paula Ospina
 
