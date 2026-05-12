@@ -21,10 +21,12 @@ venv/
 htmlcov/
 .pytest_cache/
 
-# Builds
-dist/
-build/
+
 
 # Sistema
 .DS_Store
 Thumbs.db
+
+dist/
+build/
+*.spec
