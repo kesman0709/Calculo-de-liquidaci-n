@@ -202,3 +202,59 @@ tests/
 
 
 
+
+---
+
+## 🗄️ Base de Datos (Entrega 3)
+
+Esta entrega agrega persistencia en PostgreSQL. Las liquidaciones calculadas quedan guardadas en la base de datos.
+
+### Prerrequisitos adicionales
+
+- Una base de datos PostgreSQL (puede crear una gratis en https://render.com o https://neon.tech)
+- Instalar el paquete de conexión:
+
+```
+pip install psycopg2
+```
+
+### Configurar la conexión
+
+Copie el archivo de ejemplo:
+
+```
+cp secret_config_sample.py secret_config.py
+```
+
+Abra `secret_config.py` y complete con los datos de su base de datos:
+
+```python
+PGHOST='su-host.render.com'
+PGDATABASE='nombre_de_su_bd'
+PGUSER='su_usuario'
+PGPASSWORD='su_contrasena'
+PGPORT=5432
+```
+
+> `secret_config.py` está en `.gitignore` y **nunca debe subirse al repositorio**.
+
+### Crear la tabla
+
+Ejecute las pruebas unitarias — el fixture crea la tabla automáticamente:
+
+```
+python -m pytest tests/test_liquidacion.py -v
+```
+
+Todos los tests deben aparecer en verde.
+
+### Archivos nuevos en esta entrega
+
+```
+sql/
+  crear-liquidaciones.sql       — Script que crea la tabla en la BD
+  borrar-liquidaciones.sql      — Script que borra la tabla en la BD
+src/controller/
+  liquidacion_controller.py     — Operaciones con la BD: insertar, buscar, listar
+secret_config_sample.py         — Plantilla de configuración (sin datos privados)
+```

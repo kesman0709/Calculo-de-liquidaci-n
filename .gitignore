@@ -30,3 +30,4 @@ Thumbs.db
 dist/
 build/
 *.spec
+secret_config.py
