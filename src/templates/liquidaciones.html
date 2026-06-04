@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+
+    <form action="/buscar_liquidacion">
+        <h2>Buscar una Liquidacion</h2>
+        Escriba el ID de la liquidacion:
+        <input type="text" name="id_buscado" />
+        <button>Buscar</button>
+    </form>
+    <a href="/lista_liquidaciones">Ver todas las liquidaciones registradas</a>
+
+    <form action="/calcular">
+        <h2>Calcular e Insertar una Liquidacion</h2>
+        <table>
+            <tr>
+                <td>Salario por hora</td>
+                <td><input type="number" name="salario_hora" step="0.01" /></td>
+            </tr>
+            <tr>
+                <td>Dias trabajados</td>
+                <td><input type="number" name="dias_trabajados" /></td>
+            </tr>
+            <tr>
+                <td>Vacaciones pendientes (dias)</td>
+                <td><input type="number" name="vacaciones_pendientes" value="0" /></td>
+            </tr>
+            <tr>
+                <td>Aplica indemnizacion (1=Si, 0=No)</td>
+                <td><input type="number" name="aplica_indemnizacion" value="0" /></td>
+            </tr>
+            <tr>
+                <td>Valor indemnizacion</td>
+                <td><input type="number" name="valor_indemnizacion" value="0" /></td>
+            </tr>
+        </table>
+
+        <input type="submit" value="Calcular" />
+    </form>
+
+    {% if error %}
+        <p><strong>Error:</strong> {{ error }}</p>
+    {% endif %}
+
+    {% if total is not none %}
+        <h2>Resultado</h2>
+        <table>
+            <tr>
+                <td>Salario por hora</td>
+                <td>{{ datos.salario_hora }}</td>
+            </tr>
+            <tr>
+                <td>Dias trabajados</td>
+                <td>{{ datos.dias_trabajados }}</td>
+            </tr>
+            <tr>
+                <td>Vacaciones pendientes</td>
+                <td>{{ datos.vacaciones_pendientes }}</td>
+            </tr>
+            <tr>
+                <td>Aplica indemnizacion</td>
+                <td>{{ "Si" if datos.aplica_indemnizacion else "No" }}</td>
+            </tr>
+            <tr>
+                <td>Valor indemnizacion</td>
+                <td>{{ datos.valor_indemnizacion }}</td>
+            </tr>
+            <tr>
+                <td><strong>Total a pagar</strong></td>
+                <td><strong>{{ "%.2f"|format(total) }}</strong></td>
+            </tr>
+        </table>
+        <p>La liquidacion fue guardada en la base de datos.</p>
+    {% endif %}
+
+    <br>
+    <a href="/">Volver al menu</a>
+
+    <div>
+        Si es la primera vez que usa esta aplicacion, <a href="/crear_tablas">haga click
+        aqui para crear las tablas en la base de datos</a>
+    </div>
+
+</body>
+
+</html>

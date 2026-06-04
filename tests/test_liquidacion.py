@@ -1,5 +1,10 @@
-from src.model import logica_liquidacion
-from src.controller.liquidacion_controller import LiquidacionController
+import unittest
+import sys
+sys.path.append("src")
+
+import model.logica_liquidacion as logica_liquidacion
+from model.logica_liquidacion import DatosLiquidacion, calcular_liquidacion
+from controller.liquidacion_controller import LiquidacionController
 import unittest
 
 
