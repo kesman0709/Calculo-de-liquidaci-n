@@ -3,31 +3,30 @@ sys.path.append(".")
 sys.path.append("src")
 
 import psycopg2
-
-from src.model.logica_liquidacion import DatosLiquidacion
+from model.logica_liquidacion import DatosLiquidacion
 import secret_config
 
 
 class LiquidacionController:
 
     def crear_tabla():
-        """Crea la tabla liquidaciones en la base de datos"""
         cursor = LiquidacionController.obtener_cursor()
         with open("sql/crear-liquidaciones.sql", "r") as archivo:
             consulta = archivo.read()
         cursor.execute(consulta)
         cursor.connection.commit()
+        cursor.connection.close()
 
     def borrar_tabla():
-        """Borra la tabla liquidaciones de la base de datos"""
         cursor = LiquidacionController.obtener_cursor()
         with open("sql/borrar-liquidaciones.sql", "r") as archivo:
             consulta = archivo.read()
         cursor.execute(consulta)
         cursor.connection.commit()
+        cursor.connection.close()
 
     def insertar(datos: DatosLiquidacion, total: float):
-        """Recibe una instancia de DatosLiquidacion y el total, y los inserta en la tabla"""
+        """Guarda una liquidacion calculada en la base de datos"""
         cursor = LiquidacionController.obtener_cursor()
         consulta = """insert into liquidaciones
             (salario_hora, dias_trabajados, vacaciones_pendientes,
@@ -42,42 +41,28 @@ class LiquidacionController:
             total
         ))
         cursor.connection.commit()
+        cursor.connection.close()
 
-    def buscar_por_id(id: int) -> DatosLiquidacion:
-        """Busca una liquidacion por su id y retorna una instancia de DatosLiquidacion"""
+    def buscar_por_id(id: int):
+        """Trae una liquidacion dado su id"""
         cursor = LiquidacionController.obtener_cursor()
-        consulta = """select salario_hora, dias_trabajados, vacaciones_pendientes,
-                      aplica_indemnizacion, valor_indemnizacion
-                      from liquidaciones where id = %s"""
+        consulta = "select * from liquidaciones where id = %s"
         cursor.execute(consulta, (id,))
-        fila = cursor.fetchone()
-        if fila is None:
-            return None
-        return DatosLiquidacion(
-            salario_hora=float(fila[0]),
-            dias_trabajados=int(fila[1]),
-            vacaciones_pendientes=int(fila[2]),
-            aplica_indemnizacion=bool(fila[3]),
-            valor_indemnizacion=float(fila[4])
-        )
+        resultado = cursor.fetchone()
+        cursor.connection.close()
+        return resultado
 
-    def obtener_todas() -> list:
-        """Retorna todas las liquidaciones guardadas como lista de filas"""
+    def obtener_todas():
+        """Trae todas las liquidaciones guardadas"""
         cursor = LiquidacionController.obtener_cursor()
-        consulta = """select id, salario_hora, dias_trabajados, vacaciones_pendientes,
-                      aplica_indemnizacion, valor_indemnizacion, total
-                      from liquidaciones order by id"""
+        consulta = "select * from liquidaciones order by id"
         cursor.execute(consulta)
-        return cursor.fetchall()
-
-    def obtener_ultimo_id() -> int:
-        """Retorna el id del ultimo registro insertado"""
-        cursor = LiquidacionController.obtener_cursor()
-        cursor.execute("select max(id) from liquidaciones")
-        return cursor.fetchone()[0]
+        resultado = cursor.fetchall()
+        cursor.connection.close()
+        return resultado
 
     def obtener_cursor():
-        """Crea la conexion a la base de datos y retorna un cursor para hacer consultas"""
+        """Crea la conexion a la base de datos y retorna un cursor"""
         connection = psycopg2.connect(
             database=secret_config.PGDATABASE,
             user=secret_config.PGUSER,
@@ -85,4 +70,7 @@ class LiquidacionController:
             host=secret_config.PGHOST,
             port=secret_config.PGPORT
         )
-        return connection.cursor()
+        cursor = connection.cursor()
+        return cursor
+
+
