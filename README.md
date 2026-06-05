@@ -1,260 +1,389 @@
-#  Calculadora de Liquidación Laboral
+# 💼 Calculadora de Liquidación Laboral - Web
 
-### **Desarrollado por:**
-
-Santiago Gonzalez Orrego
-
-Kesman Posso Parra
-
-Audio donde se explica acerca del proyecto: https://github.com/kesman0709/Calculo-de-liquidaci-n/blob/main/explicaci%C3%B3n%20del%20proyecto.m4a
-
-### **Interfáz desarrollada por:**
-
-Maria Paula Ospina 
-
-Manolo Restrepo
+Una aplicación web para calcular el total a pagar a un empleado al momento de su liquidación, teniendo en cuenta el salario por hora, días trabajados, vacaciones pendientes e indemnización.
 
 ---
 
-##  Descripción del Proyecto
+## 👥 Desarrolladores
 
-La Calculadora de Liquidación Laboral es una aplicación diseñada para calcular el total a pagar a un empleado al momento de su liquidación. El sistema tiene en cuenta el salario por hora, los días trabajados, las vacaciones pendientes y, si aplica, una indemnización adicional. Los casos de prueba fueron definidos previamente en un archivo Excel y la implementación se realizó con base en esos escenarios.
+**Backend & Lógica:**
+- Santiago Gonzalez Orrego
+- Kesman Posso Parra
 
----
+**Interfaz Web:**
+- Maria Paula Ospina
+- Manolo Restrepo
 
-##  Objetivo
-
-Esta herramienta busca facilitar el cálculo preciso y automatizado de una liquidación laboral, permitiendo:
-
-- Ingresar el salario por hora y los días trabajados.
-- Incluir vacaciones pendientes no disfrutadas.
-- Aplicar una indemnización adicional cuando corresponda.
-- Obtener el total a pagar de forma inmediata y confiable.
+**Documentación:** [Audio de explicación del proyecto](https://github.com/kesman0709/Calculo-de-liquidaci-n/blob/main/explicaci%C3%B3n%20del%20proyecto.m4a)
 
 ---
 
-##  Funcionamiento
+## 📋 Descripción del Proyecto
+
+La **Calculadora de Liquidación Laboral** es una aplicación web diseñada para automatizar el cálculo preciso de liquidaciones laborales. El sistema permite:
+
+- ✅ Ingresar el salario por hora y días trabajados
+- ✅ Incluir vacaciones pendientes no disfrutadas
+- ✅ Aplicar indemnización adicional cuando corresponda
+- ✅ Obtener el total a pagar de forma inmediata
+- ✅ Persistencia de datos en base de datos PostgreSQL
+
+---
+
+## 🚀 Instalación y Ejecución
 
 ### Prerrequisitos
 
-Antes de comenzar, asegúrese de tener lo siguiente:
+Antes de comenzar, asegúrese de tener lo siguiente instalado:
 
-- **Python 3** instalado en su computador. Si no lo tiene, descárguelo desde https://www.python.org/downloads/
+1. **Python 3.8 o superior** - Descargue desde https://www.python.org/downloads/
+   - En Windows, marque la casilla **"Add Python to PATH"** durante la instalación
 
-  >  En Windows, durante la instalación marque la casilla **"Add Python to PATH"**
+2. **Git** - Descargue desde https://git-scm.com/downloads
 
-- La carpeta del proyecto descargada en su computador (`Calculo-de-liquidacion`)
+3. **PostgreSQL** (opcional, para persistencia de datos)
+   - Local: https://www.postgresql.org/download/
+   - Cloud gratuito: https://render.com o https://neon.tech
 
 ---
 
-###  Opción 1 — Desde la terminal (CMD / Bash)
+## 📦 Opción 1: Ejecución Local sin Base de Datos
 
-**Paso 1 — Abrir la terminal**
+Ideal para pruebas rápidas sin persistencia.
 
-- **Windows:** Presione `Windows + R`, escriba `cmd` y presione Enter.
-- **Mac:** Presione `Cmd + Espacio`, busque Terminal y ábrala.
-- **Linux:** Busque Terminal en el menú de aplicaciones.
+### Paso 1 — Clonar o descargar el proyecto
 
-**Paso 2 — Ir a la carpeta del proyecto**
-
-Escriba `cd` seguido de la ruta donde guardó el proyecto. Por ejemplo:
-
-Windows:
-```
-cd C:\Users\TuUsuario\Desktop\Calculo-de-liquidacion
+```bash
+git clone https://github.com/kesman0709/Calculo-de-liquidaci-n.git
+cd Calculo-de-liquidaci-n
 ```
 
-Mac / Linux:
-```
-cd /Users/TuUsuario/Desktop/Calculo-de-liquidacion
-```
+### Paso 2 — Crear un entorno virtual
 
->  **Tip:** Puede arrastrar la carpeta del proyecto hacia la ventana de la terminal y la ruta aparecerá automáticamente.
-
-**Paso 3 — Ejecutar el programa**
-
-Windows:
-```
-python src\view\interfaz_liquidacion.py
+**Windows:**
+```bash
+python -m venv venv
+venv\Scripts\activate
 ```
 
-Mac / Linux:
-```
-python3 src/view/interfaz_liquidacion.py
+**Mac / Linux:**
+```bash
+python3 -m venv venv
+source venv/bin/activate
 ```
 
-Si todo está bien, verá la interfaz del programa en pantalla.
+### Paso 3 — Instalar dependencias
 
-**Ejecutar las pruebas unitarias**
-
-Windows:
+```bash
+pip install flask
 ```
+
+### Paso 4 — Ejecutar la aplicación
+
+```bash
+python app.py
+```
+
+**Resultado esperado:**
+```
+ * Serving Flask app 'app'
+ * Debug mode: on
+ * Running on http://127.0.0.1:5000
+```
+
+### Paso 5 — Acceder a la aplicación
+
+Abra su navegador web e ingrese:
+```
+http://localhost:5000
+```
+
+---
+
+## 🗄️ Opción 2: Ejecución con Base de Datos PostgreSQL
+
+Para persistencia y gestión de datos históricos.
+
+### Paso 1 — Completar los pasos 1-3 de la Opción 1
+
+```bash
+git clone https://github.com/kesman0709/Calculo-de-liquidaci-n.git
+cd Calculo-de-liquidaci-n
+python -m venv venv
+# Activar venv (ver Opción 1, Paso 2)
+```
+
+### Paso 2 — Instalar dependencias con PostgreSQL
+
+```bash
+pip install flask psycopg2-binary
+```
+
+### Paso 3 — Configurar la conexión a la base de datos
+
+1. Copie el archivo de configuración de ejemplo:
+
+**Windows:**
+```bash
+copy secret_config_sample.py secret_config.py
+```
+
+**Mac / Linux:**
+```bash
+cp secret_config_sample.py secret_config.py
+```
+
+2. Abra `secret_config.py` y complete con sus credenciales:
+
+```python
+PGHOST='su-host.render.com'      # Host de PostgreSQL
+PGDATABASE='nombre_de_su_bd'     # Nombre de la base de datos
+PGUSER='su_usuario'              # Usuario de PostgreSQL
+PGPASSWORD='su_contrasena'       # Contraseña
+PGPORT=5432                      # Puerto (por defecto 5432)
+```
+
+> ⚠️ **Importante:** `secret_config.py` está en `.gitignore` y **nunca debe subirse al repositorio**.
+
+### Paso 4 — Crear la tabla de liquidaciones
+
+Ejecute el script SQL para crear la tabla:
+
+**Windows:**
+```bash
+# Acceder a PostgreSQL
+psql -h <PGHOST> -U <PGUSER> -d <PGDATABASE>
+# Luego ejecutar el contenido de sql/crear-liquidaciones.sql
+```
+
+**Mac / Linux:**
+```bash
+psql -h <PGHOST> -U <PGUSER> -d <PGDATABASE> < sql/crear-liquidaciones.sql
+```
+
+O ejecute las pruebas unitarias (crean la tabla automáticamente):
+
+```bash
+python -m pytest tests/ -v
+```
+
+### Paso 5 — Ejecutar la aplicación
+
+```bash
+python app.py
+```
+
+Acceda a la aplicación en: http://localhost:5000
+
+---
+
+## 🧪 Ejecución de Pruebas Unitarias
+
+Las pruebas validan toda la lógica de cálculo:
+
+```bash
+# Con unittest
 python -m unittest discover -s tests
+
+# Con pytest (recomendado)
+pip install pytest
+python -m pytest tests/ -v
 ```
 
-Mac / Linux:
-```
-python3 -m unittest discover -s tests
-```
-
-Si las pruebas pasaron correctamente, verá un mensaje con `passed` en verde. Si alguna falló, verá `FAILED` en rojo con una descripción del error.
+**Resultado esperado:** Todos los tests en verde ✅
 
 ---
 
-###  Opción 2 — Desde un entorno de desarrollo (VS Code, PyCharm, etc.)
+## 📊 Estructura del Proyecto
 
-**Paso 1 — Abrir el proyecto**
-
-Abra su entorno de desarrollo y seleccione la opción "Abrir carpeta" (o *Open Folder*). Busque y seleccione la carpeta `Calculo-de-liquidacion`.
-
-**Paso 2 — Seleccionar el intérprete de Python**
-
-Asegúrese de que su entorno tenga configurado Python 3 como intérprete.
-
-- **VS Code:** Presione `Ctrl + Shift + P`, busque *"Python: Select Interpreter"* y elija la versión de Python 3 instalada en su equipo.
-- **PyCharm:** Vaya a *File > Settings > Project > Python Interpreter* y seleccione Python 3.
-
-**Paso 3 — Ejecutar el programa**
-
-Abra el archivo `src/view/interfaz_liquidacion.py` y ejecútelo:
-
-- **VS Code:** Presione el botón ▶️ en la esquina superior derecha, o haga clic derecho sobre el archivo y seleccione *"Run Python File"*.
-- **PyCharm:** Presione el botón ▶️ en la esquina superior derecha, o haga clic derecho y seleccione *"Run"*.
-
-**Ejecutar las pruebas unitarias**
-
-Abra el archivo `tests/test_liquidacion.py` y ejecútelo de la misma forma que el paso anterior.
-
->  También puede ejecutar las pruebas desde la terminal integrada del entorno (*View > Terminal*) usando el mismo comando de la Opción 1.
-
----
-
-##  Entradas del Sistema
-
-El usuario debe ingresar:
-
-- **Salario por hora** (`salario_hora`): Valor monetario pagado por cada hora trabajada. Debe ser mayor que cero.
-- **Días trabajados** (`dias_trabajados`): Cantidad de días laborados. Debe estar entre 1 y 30.
-- **Vacaciones pendientes** (`vacaciones_pendientes`): Días de vacaciones no disfrutados a pagar. No puede ser negativo. Por defecto es 0.
-- **Aplica indemnización** (`aplica_indemnizacion`): Valor booleano que indica si el empleado tiene derecho a indemnización adicional.
-- **Valor indemnización** (`valor_indemnizacion`): Monto adicional a sumar si aplica indemnización. No puede ser negativo. Por defecto es 0.
+```
+Calculo-de-liquidaci-n/
+├── app.py                          # Aplicación principal Flask
+├── requirements.txt                # Dependencias del proyecto
+├── secret_config_sample.py         # Plantilla de configuración DB (sin datos privados)
+│
+├── src/
+│   ├── model/
+│   │   └── logica_liquidacion.py   # Lógica de cálculo y validaciones
+│   ├── controller/
+│   │   └── liquidacion_controller.py # Operaciones con la base de datos
+│   └── view/
+│       ├── Web/
+│       │   ├── liquidacion_routes.py # Rutas de la aplicación web
+│       │   └── (templates HTML)
+│       └── templates/
+│           └── (archivos HTML)
+│
+├── sql/
+│   ├── crear-liquidaciones.sql     # Script para crear tabla
+│   └── borrar-liquidaciones.sql    # Script para eliminar tabla
+│
+├── tests/
+│   └── test_liquidacion.py         # Pruebas unitarias
+│
+└── README.md                       # Este archivo
+```
 
 ---
 
-##  Proceso del Sistema
+## 📥 Entradas del Sistema
 
-El sistema asume una jornada laboral de **10 horas por día**, de acuerdo con los valores definidos en los casos de prueba.
+El usuario debe ingresar en la interfaz web:
 
-El total se calcula de la siguiente manera:
+| Campo | Descripción | Validación |
+|-------|-------------|-----------|
+| **Salario por hora** | Valor monetario por hora trabajada | Mayor que 0 |
+| **Días trabajados** | Cantidad de días laborados | Entre 1 y 30 |
+| **Vacaciones pendientes** | Días de vacaciones no disfrutados | ≥ 0 (opcional) |
+| **¿Aplica indemnización?** | ¿Tiene derecho a indemnización? | Sí/No |
+| **Valor indemnización** | Monto adicional a sumar | ≥ 0 (si aplica) |
+
+---
+
+## 🧮 Proceso de Cálculo
+
+El sistema asume una **jornada laboral de 10 horas por día**.
 
 ```
 Salario base   = salario_hora × 10 × días_trabajados
 Vacaciones     = salario_hora × 10 × vacaciones_pendientes
-Total          = salario base + vacaciones + indemnización (si aplica)
+Indemnización  = valor_indemnización (si aplica)
+
+TOTAL A PAGAR  = Salario base + Vacaciones + Indemnización
+```
+
+### Ejemplo:
+```
+Salario por hora:      $15.000
+Días trabajados:       15
+Vacaciones pendientes: 3
+Indemnización:         $50.000
+
+Salario base   = $15.000 × 10 × 15 = $2.250.000
+Vacaciones     = $15.000 × 10 × 3  = $450.000
+Indemnización  = $50.000
+
+TOTAL          = $2.750.000
 ```
 
 ---
 
-##  Validaciones
+## ⚠️ Validaciones y Mensajes de Error
 
-El sistema valida que:
+El sistema valida los datos y muestra errores específicos:
 
-- El salario por hora sea mayor que cero.
-- Los días trabajados estén entre 1 y 30.
-- Las vacaciones pendientes no sean negativas.
-- El valor de la indemnización no sea negativo si aplica.
-
----
-
-##  Mensajes de Error
-
-En caso de datos inválidos, el sistema indica qué dato causó el problema y cómo corregirlo:
-
--  `SalarioInvalido`: "salario_hora inválido: {salario_hora}"
--  `DiasInvalidos`: "dias_trabajados inválidos: {dias_trabajados}"
--  `VacacionesInvalidas`: "vacaciones_pendientes inválidas: {vacaciones_pendientes}"
--  `IndemnizacionInvalida`: "valor_indemnizacion inválido: {valor}"
+| Error | Mensaje | Solución |
+|-------|---------|----------|
+| `SalarioInvalido` | "salario_hora inválido: {valor}" | Ingrese un valor mayor a 0 |
+| `DiasInvalidos` | "dias_trabajados inválidos: {valor}" | Ingrese entre 1 y 30 días |
+| `VacacionesInvalidas` | "vacaciones_pendientes inválidas: {valor}" | Ingrese un valor ≥ 0 |
+| `IndemnizacionInvalida` | "valor_indemnizacion inválido: {valor}" | Ingrese un valor ≥ 0 |
 
 ---
 
-##  Salidas del Sistema
+## 📤 Salidas del Sistema
 
-El sistema mostrará:
+La aplicación muestra:
 
-- **Total a pagar:** Suma del salario base, vacaciones e indemnización (si aplica).
-
----
-
-
-##  Descripción de Carpetas
-
-```
-src/
-README - Contiene la información para la ejecución de la interfaz gráfica
-  model/
-    logica_liquidacion.py   — Contiene la lógica del sistema: validaciones y cálculo del total a pagar.
-  view/
-    interfaz_liquidacion.py — Gestiona la interfaz con el usuario: muestra campos de entrada y resultado.
-tests/
-  test_liquidacion.py       — Agrupa las pruebas automatizadas que verifican el correcto funcionamiento del sistema.
-```
-
-
-
-
+- **Total a pagar:** Suma final del salario base, vacaciones e indemnización
+- **Desglose:** Valores parciales de cada concepto
+- **Validaciones:** Mensajes de error si los datos son inválidos
 
 ---
 
-## 🗄️ Base de Datos (Entrega 3)
+## 🌐 Variables de Entorno (Avanzado)
 
-Esta entrega agrega persistencia en PostgreSQL. Las liquidaciones calculadas quedan guardadas en la base de datos.
+Si prefiere usar variables de entorno en lugar de `secret_config.py`:
 
-### Prerrequisitos adicionales
-
-- Una base de datos PostgreSQL (puede crear una gratis en https://render.com o https://neon.tech)
-- Instalar el paquete de conexión:
-
-```
-pip install psycopg2
-```
-
-### Configurar la conexión
-
-Copie el archivo de ejemplo:
-
-```
-cp secret_config_sample.py secret_config.py
+**Windows (CMD):**
+```bash
+set PGHOST=su-host.render.com
+set PGDATABASE=nombre_de_su_bd
+set PGUSER=su_usuario
+set PGPASSWORD=su_contrasena
+set PGPORT=5432
+python app.py
 ```
 
-Abra `secret_config.py` y complete con los datos de su base de datos:
-
-```python
-PGHOST='su-host.render.com'
-PGDATABASE='nombre_de_su_bd'
-PGUSER='su_usuario'
-PGPASSWORD='su_contrasena'
-PGPORT=5432
+**Mac / Linux (Bash):**
+```bash
+export PGHOST=su-host.render.com
+export PGDATABASE=nombre_de_su_bd
+export PGUSER=su_usuario
+export PGPASSWORD=su_contrasena
+export PGPORT=5432
+python app.py
 ```
 
-> `secret_config.py` está en `.gitignore` y **nunca debe subirse al repositorio**.
+---
 
-### Crear la tabla
+## 🐛 Solución de Problemas
 
-Ejecute las pruebas unitarias — el fixture crea la tabla automáticamente:
-
+### "ModuleNotFoundError: No module named 'flask'"
+```bash
+pip install flask
 ```
-python -m pytest tests/test_liquidacion.py -v
+
+### "psycopg2: Connection refused"
+- Verifique que PostgreSQL esté ejecutándose
+- Verifique credenciales en `secret_config.py`
+- Revise que PGHOST y PGPORT sean correctos
+
+### Puerto 5000 ya está en uso
+```bash
+# Encontrar el proceso usando el puerto y terminarlo
+# O ejecutar en otro puerto:
+python app.py --port 5001
 ```
 
-Todos los tests deben aparecer en verde.
+### "Template not found"
+- Verifique que la carpeta `src/templates/` exista
+- Asegúrese de estar en el directorio raíz del proyecto
 
-### Archivos nuevos en esta entrega
+---
 
-```
-sql/
-  crear-liquidaciones.sql       — Script que crea la tabla en la BD
-  borrar-liquidaciones.sql      — Script que borra la tabla en la BD
-src/controller/
-  liquidacion_controller.py     — Operaciones con la BD: insertar, buscar, listar
-secret_config_sample.py         — Plantilla de configuración (sin datos privados)
-```
+## 📚 Archivos de Referencia
+
+- **Casos de prueba:** `Casos de prueba - liquidación.xlsx`
+- **Especificación de empaquetado:** `app.spec`
+- **Audio explicativo:** `explicación del proyecto.m4a`
+
+---
+
+## 📝 Notas Importantes
+
+- 🔐 **Nunca** suba `secret_config.py` al repositorio
+- ✅ Ejecute siempre las pruebas antes de hacer cambios
+- 🌍 Para acceso remoto, configure Flask con un host público:
+  ```python
+  app.run(host='0.0.0.0', debug=True)
+  ```
+- 📱 Asegúrese de que el firewall permita conexiones al puerto 5000
+
+---
+
+## 🤝 Contribuciones
+
+Para contribuir al proyecto:
+
+1. Cree una rama con sus cambios: `git checkout -b feature/mi-funcionalidad`
+2. Commit de cambios: `git commit -m 'Agregar nueva funcionalidad'`
+3. Push a la rama: `git push origin feature/mi-funcionalidad`
+4. Abra un Pull Request
+
+---
+
+## 📄 Licencia
+
+Este proyecto es un trabajo académico desarrollado como proyecto de clase.
+
+---
+
+## 📧 Contacto
+
+Para preguntas o sugerencias, abra un issue en el repositorio:
+https://github.com/kesman0709/Calculo-de-liquidaci-n/issues
+
+---
+
+**Última actualización:** Junio 2026
