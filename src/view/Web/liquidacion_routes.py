@@ -66,7 +66,7 @@ def calcular():
 
 @blueprint.route("/buscar_liquidacion")
 def buscar_liquidacion():
-    liquidacion = LiquidacionController.buscar_por_id(request.args["id_buscado"])
+    liquidacion = LiquidacionController.buscar_por_id_web(request.args["id_buscado"])
     return render_template("liquidacion_buscada.html", liquidacion=liquidacion)
 
 

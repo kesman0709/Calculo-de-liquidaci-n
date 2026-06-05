@@ -44,7 +44,8 @@ class LiquidacionController:
         cursor.connection.close()
 
     def buscar_por_id(id: int) -> DatosLiquidacion:
-        """Trae una liquidacion dado su id, retorna DatosLiquidacion o None"""
+        """Trae una liquidacion dado su id, retorna DatosLiquidacion o None.
+        Usado por los tests."""
         cursor = LiquidacionController.obtener_cursor()
         consulta = """select salario_hora, dias_trabajados, vacaciones_pendientes,
                       aplica_indemnizacion, valor_indemnizacion
@@ -61,6 +62,18 @@ class LiquidacionController:
             aplica_indemnizacion=bool(fila[3]),
             valor_indemnizacion=float(fila[4])
         )
+
+    def buscar_por_id_web(id: int) -> tuple:
+        """Trae una liquidacion dado su id como tupla de 7 campos.
+        Usado por la vista web."""
+        cursor = LiquidacionController.obtener_cursor()
+        consulta = """select id, salario_hora, dias_trabajados, vacaciones_pendientes,
+                      aplica_indemnizacion, valor_indemnizacion, total
+                      from liquidaciones where id = %s"""
+        cursor.execute(consulta, (int(id),))
+        fila = cursor.fetchone()
+        cursor.connection.close()
+        return fila
 
     def obtener_todas() -> list:
         """Trae todas las liquidaciones guardadas"""
